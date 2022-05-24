@@ -12,10 +12,12 @@ class GamesController < ApplicationController
     word_found = word_found?(params[:word])
 
     # The word can’t be built out of the original grid
-    if !@word.subset?(@letters_set)
+    unless @word.subset?(@letters_set)
       separated_word = params[:word].chars.join(' ')
       @message = "Sorry but #{params['collected_input']} can't be built out of #{separated_word}"
-    elsif word_found
+    end
+
+    if word_found
       # The word is valid according to the grid and is an English word
       @message = "CONGRATULATIONS! #{params[:word]} is a according to grid and IS a valid english word"
     elsif !word_found
